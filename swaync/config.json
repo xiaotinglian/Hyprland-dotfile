@@ -30,7 +30,6 @@
 	"widgets": [
 		"title",
 		"dnd",
-		"volume",
 		"buttons-grid",
 		"mpris",
 		"notifications"
@@ -65,11 +64,11 @@
 				},
 				{
 					"label": "󰤨",
-					"command": "nm-connection-editor"
+					"command": "rofi -show \"WIFI\" -modi \"WIFI:iwdrofimenu\""
 				},
 				{
 					"label": "󰂯",
-					"command": "blueman-manager"
+					"command": "~/.config/rofi/bluetooth"
 				},
 				{
 					"label": "󰐥",

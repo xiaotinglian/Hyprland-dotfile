@@ -34,7 +34,7 @@
         "format-alt-click": "click-right",
         "interval": 3600,
         "restart-interval": 5,
-        "exec": "curl -s 'https://wttr.in/?format=1'"
+        "exec": "curl -s 'https://wttr.in/?format=1&m'"
     },
 
     "clock": {
@@ -84,10 +84,7 @@
         "on-click": "~/.config/rofi/bluetooth",
         "on-click-right": "bluetoothctl power toggle"
     },
-    "tray": {
-        "icon-size": 15,
-        "spacing": 5
-    },
+
     "network": {
         "tooltip": false,
         "format-wifi": "{icon}",
@@ -98,12 +95,15 @@
             "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
             "ethernet": "󰛳",
             "disconnected": "󰤭"
-        },
-        "on-click": "nm-connection-editor"
+        }
+    },
+    "tray": {
+        "icon-size": 15,
+        "spacing": 10
     },
     "custom/lizzy": {
-        "format": "{icon} {text}",
-        "exec": "lizzy --format '{{title}}: {{artist}}' --autotoggle",
+        "format": "{icon} {text} ",
+        "exec": "lizzy --format '{{title}}: {{artist}} ' --autotoggle",
         "return-type": "json",
         "on-click": "playerctl play-pause",
         "on-click-right": "playerctl next",
