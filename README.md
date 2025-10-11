@@ -14,3 +14,5 @@ sudo dnf install zen-browser
 ```
 lizzy for media in waybar
 https://github.com/stefur/lizzy
+bluetooth
+https://github.com/defname/rofi-iwd-wifi-menu?tab=readme-ov-file
