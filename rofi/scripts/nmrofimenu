@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+wifi_dev="${WIFI_DEV:-}"
+if [[ -z "${wifi_dev}" ]]; then
+  wifi_dev="$(nmcli -t -f DEVICE,TYPE,STATE device status | awk -F: '$2=="wifi" {print $1; exit}')"
+fi
+
+if [[ -z "${wifi_dev}" ]]; then
+  echo "No Wi-Fi device found"
+  exit 0
+fi
+
+wifi_state="$(nmcli -t -f WIFI general status 2>/dev/null || echo "disabled")"
+
+print_list() {
+  echo "Toggle Wi-Fi (${wifi_state})\0info\x1faction:toggle"
+  echo "Rescan\0info\x1faction:rescan"
+  echo "Disconnect\0info\x1faction:disconnect"
+
+  if [[ "${wifi_state}" != "enabled" ]]; then
+    return
+  fi
+
+  nmcli -t --escape no -f IN-USE,SSID,SECURITY,SIGNAL device wifi list --rescan no ifname "${wifi_dev}" \
+    | awk -F: '
+      function trim(s){gsub(/^[ \t]+|[ \t]+$/, "", s); return s}
+      {
+        inuse=trim($1)
+        ssid=trim($2)
+        sec=trim($3)
+        sig=trim($4)
+        if (ssid == "") next
+        if (sec == "") sec = "open"
+        if (sig == "") sig = "?"
+        mark = (inuse == "*") ? "[*]" : "[ ]"
+        label = mark " " ssid "  (" sig "%)  [" sec "]"
+        print label "\\0info\\x1fssid:" ssid
+      }'
+}
+
+handle_action() {
+  local action="$1"
+  case "${action}" in
+    toggle)
+      if [[ "${wifi_state}" == "enabled" ]]; then
+        nmcli radio wifi off >/dev/null 2>&1 || true
+      else
+        nmcli radio wifi on >/dev/null 2>&1 || true
+      fi
+      ;;
+    rescan)
+      nmcli device wifi rescan ifname "${wifi_dev}" >/dev/null 2>&1 || true
+      ;;
+    disconnect)
+      nmcli device disconnect "${wifi_dev}" >/dev/null 2>&1 || true
+      ;;
+  esac
+}
+
+connect_ssid() {
+  local ssid="$1"
+
+  if nmcli -t -f ACTIVE,SSID device wifi list --rescan no ifname "${wifi_dev}" | grep -Fqx "yes:${ssid}"; then
+    exit 0
+  fi
+
+  if nmcli device wifi connect "${ssid}" ifname "${wifi_dev}" >/dev/null 2>&1; then
+    exit 0
+  fi
+
+  local pass
+  pass="$(printf '' | rofi -dmenu -password -p "Password for ${ssid}")"
+  if [[ -z "${pass}" ]]; then
+    exit 0
+  fi
+
+  nmcli device wifi connect "${ssid}" password "${pass}" ifname "${wifi_dev}" >/dev/null 2>&1 || true
+}
+
+if [[ "${ROFI_RETV:-0}" -eq 0 ]]; then
+  print_list
+  exit 0
+fi
+
+info="${ROFI_INFO:-}"
+if [[ "${info}" == action:* ]]; then
+  handle_action "${info#action:}"
+  print_list
+  exit 0
+fi
+
+if [[ "${info}" == ssid:* ]]; then
+  connect_ssid "${info#ssid:}"
+  print_list
+  exit 0
+fi
+
+print_list

@@ -1,13 +1,10 @@
-was originally a copy of CachyOS hyprland config, but now changed a lot
 
 ```
-sudo dnf copr enable erikreider/SwayNotificationCenter
-# Or latest stable release or -git package
-sudo dnf install SwayNotificationCenter
-sudo dnf install SwayNotificationCenter-git
+sudo dnf copr enable prankstr/vibepanel
+sudo dnf install vibepanel
 
 sudo dnf copr enable solopasha/hyprland
-sudo dnf install hyprland hyprlock hyprshot blueman rofi waybar pavucontrol
+sudo dnf install hyprland hyprlock hyprshot rofi
 
 sudo dnf copr enable sneexy/zen-browser
 sudo dnf install zen-browser
