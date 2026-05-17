@@ -1,0 +1,12 @@
+-- Converted from config/monitor.conf
+
+hl.monitor({ output = "DP-4", mode = "5120x1440@120", position = "0x0", scale = "1" })
+hl.monitor({ output = "HDMI-A-1", mode = "3440x1440@99.99", position = "auto-up", scale = "1" })
+
+hl.workspace_rule({ workspace = "1", monitor = "DP-4", persistent = true })
+
+hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "1" })
+
+hl.on("hyprland.start", function()
+    hl.exec_cmd("hyprctl dispatch focusmonitor DP-4")
+end)
