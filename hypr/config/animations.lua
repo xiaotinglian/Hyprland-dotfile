@@ -1,4 +1,4 @@
--- Converted from config/animations.conf
+-- Converted from config/animations.lua
 
 hl.config({
     animations = {

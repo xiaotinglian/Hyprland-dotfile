@@ -1,4 +1,4 @@
--- Converted from config/decorations.conf
+-- Converted from config/decorations.lua
 
 hl.config({
     decoration = {

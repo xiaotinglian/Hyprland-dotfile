@@ -1,4 +1,4 @@
--- Converted from config/environment.conf
+-- Converted from config/environment.lua
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")

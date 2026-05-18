@@ -1,4 +1,4 @@
--- Converted from config/defaults.conf
+-- Converted from config/defaults.lua
 
 return {
     mainMod = "SUPER",

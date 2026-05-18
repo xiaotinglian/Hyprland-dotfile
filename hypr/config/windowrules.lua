@@ -1,14 +1,20 @@
--- Converted from config/windowrules.conf
+-- Converted from config/windowrules.lua
+
+local chromiumBrowserClass = "^((google-)?[cC]hrom(e|ium)|[bB]rave-browser|[mM]icrosoft-edge(-stable)?|Vivaldi-stable|helium)$"
+local firefoxBrowserClass = "^([fF]irefox|zen|librewolf)$"
+local pipBrowserClass = "^((google-)?[cC]hrom(e|ium)|[bB]rave-browser|[mM]icrosoft-edge(-stable)?|Vivaldi-stable|helium|[fF]irefox|zen|librewolf)$"
+local pipTitle = "^(?i)picture[ -]?in[ -]?picture$"
+local floatingDialogTitle = "^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files|.*wants to (open|save).*|[Cc]hoose.*)$"
 
 hl.window_rule({
     name = "tag-chromium-based-browser",
-    match = { class = "((google-)?[cC]hrom(e|ium)|[bB]rave-browser|[mM]icrosoft-edge|Vivaldi-stable|helium)" },
+    match = { class = chromiumBrowserClass },
     tag = "+chromium-based-browser",
 })
 
 hl.window_rule({
     name = "tag-firefox-based-browser",
-    match = { class = "([fF]irefox|zen|librewolf)" },
+    match = { class = firefoxBrowserClass },
     tag = "+firefox-based-browser",
 })
 
@@ -31,8 +37,11 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name = "video-sites-no-opacity",
-    match = { initial_title = "((?i)(?:[a-z0-9-]+\\.)*youtube\\.com_/|app\\.zoom\\.us_/wc/home)" },
+    name = "browser-media-no-opacity",
+    match = {
+        class = pipBrowserClass,
+        title = "^(?i).*(youtube|twitch|zoom|google meet).*$",
+    },
     opacity = "1.0 1.0",
 })
 
@@ -42,7 +51,8 @@ hl.layer_rule({
     no_anim = true,
 })
 
-hl.window_rule({ name = "tag-pip", match = { title = "(Picture.?in.?[Pp]icture)" }, tag = "+pip" })
+hl.window_rule({ name = "tag-pip-title", match = { class = pipBrowserClass, title = pipTitle }, tag = "+pip" })
+hl.window_rule({ name = "tag-pip-initial-title", match = { class = pipBrowserClass, initial_title = pipTitle }, tag = "+pip" })
 hl.window_rule({ name = "pip-float", match = { tag = "pip" }, float = true })
 hl.window_rule({ name = "pip-pin", match = { tag = "pip" }, pin = true })
 hl.window_rule({ name = "pip-size", match = { tag = "pip" }, size = "600 338" })
@@ -51,16 +61,16 @@ hl.window_rule({ name = "pip-no-border", match = { tag = "pip" }, border_size = 
 hl.window_rule({ name = "pip-opacity", match = { tag = "pip" }, opacity = "1 1" })
 hl.window_rule({ name = "pip-move", match = { tag = "pip" }, move = "(monitor_w-window_w-40) (monitor_h*0.04)" })
 
-hl.window_rule({ name = "steam-float", match = { class = "steam" }, float = true })
-hl.window_rule({ name = "steam-center", match = { class = "steam", title = "Steam" }, center = true })
-hl.window_rule({ name = "steam-opacity", match = { class = "steam" }, opacity = "1 1" })
-hl.window_rule({ name = "steam-size-main", match = { class = "steam", title = "Steam" }, size = "1100 700" })
-hl.window_rule({ name = "steam-size-friends", match = { class = "steam", title = "Friends List" }, size = "460 800" })
-hl.window_rule({ name = "steam-idle-inhibit", match = { class = "steam" }, idle_inhibit = "fullscreen" })
+hl.window_rule({ name = "steam-float", match = { class = "^steam$" }, float = true })
+hl.window_rule({ name = "steam-center", match = { class = "^steam$", title = "^Steam$" }, center = true })
+hl.window_rule({ name = "steam-opacity", match = { class = "^steam$" }, opacity = "1 1" })
+hl.window_rule({ name = "steam-size-main", match = { class = "^steam$", title = "^Steam$" }, size = "1100 700" })
+hl.window_rule({ name = "steam-size-friends", match = { class = "^steam$", title = "^Friends List$" }, size = "460 800" })
+hl.window_rule({ name = "steam-idle-inhibit", match = { class = "^steam$" }, idle_inhibit = "fullscreen" })
 
 hl.window_rule({
     name = "tag-terminal",
-    match = { class = "(Alacritty|kitty|com.mitchellh.ghostty)" },
+    match = { class = "^(Alacritty|kitty|com.mitchellh.ghostty)$" },
     tag = "+terminal",
 })
 
@@ -70,7 +80,16 @@ hl.window_rule({ name = "floating-window-size", match = { tag = "floating-window
 
 hl.window_rule({
     name = "tag-floating-window-main",
-    match = { class = "(org.omarchy.bluetui|org.omarchy.impala|org.omarchy.wiremix|org.omarchy.btop|org.omarchy.terminal|org.omarchy.bash|org.gnome.NautilusPreviewer|org.gnome.Evince|com.gabm.satty|Omarchy|About|TUI.float|imv|mpv)" },
+    match = { class = "^(org.gnome.NautilusPreviewer|org.gnome.Evince|com.gabm.satty|imv|mpv)$" },
+    tag = "+floating-window",
+})
+
+hl.window_rule({
+    name = "tag-current-app-dialogs",
+    match = {
+        class = "^(code|microsoft-edge)$",
+        title = floatingDialogTitle,
+    },
     tag = "+floating-window",
 })
 
@@ -78,15 +97,12 @@ hl.window_rule({
     name = "tag-floating-window-dialogs",
     match = {
         class = "(xdg-desktop-portal-gtk|sublime_text|DesktopEditors|org.gnome.Nautilus)",
-        title = "^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files|.*wants to (open|save).*|[Cc]hoose.*)",
+        title = floatingDialogTitle,
     },
     tag = "+floating-window",
 })
 
 hl.window_rule({ name = "gnome-calculator-float", match = { class = "org.gnome.Calculator" }, float = true })
-
-hl.window_rule({ name = "screensaver-fullscreen", match = { class = "org.omarchy.screensaver" }, fullscreen = true })
-hl.window_rule({ name = "screensaver-float", match = { class = "org.omarchy.screensaver" }, float = true })
 
 hl.window_rule({
     name = "media-no-transparency",
@@ -94,11 +110,8 @@ hl.window_rule({
     opacity = "1 1",
 })
 
-hl.window_rule({ name = "pop-rounding", match = { tag = "pop" }, rounding = 8 })
-hl.window_rule({ name = "noidle-always", match = { tag = "noidle" }, idle_inhibit = "always" })
-
-hl.window_rule({ name = "webcam-overlay-float", match = { title = "WebcamOverlay" }, float = true })
-hl.window_rule({ name = "webcam-overlay-pin", match = { title = "WebcamOverlay" }, pin = true })
-hl.window_rule({ name = "webcam-overlay-no-focus", match = { title = "WebcamOverlay" }, no_initial_focus = true })
-hl.window_rule({ name = "webcam-overlay-no-dim", match = { title = "WebcamOverlay" }, no_dim = true })
-hl.window_rule({ name = "webcam-overlay-move", match = { title = "WebcamOverlay" }, move = "(monitor_w-window_w-40) (monitor_h-window_h-40)" })
+hl.window_rule({ name = "webcam-overlay-float", match = { title = "^WebcamOverlay$" }, float = true })
+hl.window_rule({ name = "webcam-overlay-pin", match = { title = "^WebcamOverlay$" }, pin = true })
+hl.window_rule({ name = "webcam-overlay-no-focus", match = { title = "^WebcamOverlay$" }, no_initial_focus = true })
+hl.window_rule({ name = "webcam-overlay-no-dim", match = { title = "^WebcamOverlay$" }, no_dim = true })
+hl.window_rule({ name = "webcam-overlay-move", match = { title = "^WebcamOverlay$" }, move = "(monitor_w-window_w-40) (monitor_h-window_h-40)" })

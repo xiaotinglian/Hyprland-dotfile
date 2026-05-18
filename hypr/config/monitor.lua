@@ -1,4 +1,4 @@
--- Converted from config/monitor.conf
+-- Converted from config/monitor.lua
 
 hl.monitor({ output = "DP-4", mode = "5120x1440@120", position = "0x0", scale = "1" })
 hl.monitor({ output = "HDMI-A-1", mode = "3440x1440@99.99", position = "auto-up", scale = "1" })

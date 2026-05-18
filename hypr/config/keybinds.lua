@@ -1,4 +1,4 @@
--- Converted from config/keybinds.conf
+-- Converted from config/keybinds.lua
 
 local defaults = require("config.defaults")
 local mainMod = defaults.mainMod
@@ -28,7 +28,7 @@ end
 bind_exec(mainMod .. " + RETURN", defaults.terminal, { desc = "Open terminal" })
 bind_exec(mainMod .. " + E", defaults.fileManager, { desc = "Open file manager" })
 bind_dispatch(mainMod .. " + Q", hl.dsp.window.close(), { desc = "Close active window" })
-bind_exec(mainMod .. " + SHIFT + M", 'loginctl terminate-user ""', { desc = "Exit Hyprland" })
+bind_dispatch(mainMod .. " + SHIFT + M", hl.dsp.exit(), { desc = "Exit Hyprland" })
 bind_dispatch(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }), { desc = "Toggle floating" })
 bind_exec(mainMod .. " + SPACE", "pkill rofi || " .. defaults.appLauncher, { desc = "Application launcher" })
 bind_dispatch(mainMod .. " + F", hl.dsp.window.fullscreen(), { desc = "Toggle fullscreen" })

@@ -1,4 +1,4 @@
--- Converted from config/input.conf
+-- Converted from config/input.lua
 
 hl.config({
     input = {

@@ -1,4 +1,4 @@
--- Converted from config/autostart.conf
+-- Converted from config/autostart.lua
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("vibepanel")

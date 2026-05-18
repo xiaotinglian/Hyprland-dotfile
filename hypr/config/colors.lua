@@ -1,4 +1,4 @@
--- Converted from config/colors.conf
+-- Converted from config/colors.lua
 
 return {
     lgreen = "rgba(82dcccff)",

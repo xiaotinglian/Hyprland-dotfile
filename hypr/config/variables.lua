@@ -1,4 +1,4 @@
--- Converted from config/variables.conf
+-- Converted from config/variables.lua
 
 local colors = require("config.colors")
 
@@ -45,7 +45,7 @@ hl.config({
         },
         background_color = colors.dblue,
         enable_swallow = true,
-        swallow_regex = "^(firefox|nautilus|nemo|thunar|btrfs-assistant.)$",
+        swallow_regex = "^(firefox|nautilus|nemo|thunar|btrfs-assistant)$",
         focus_on_activate = true,
         vrr = 2,
     },
