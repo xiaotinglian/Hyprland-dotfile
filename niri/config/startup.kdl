@@ -1,0 +1,5 @@
+spawn-at-startup "vibepanel"
+spawn-at-startup "ibus" "start" "--type" "wayland"
+
+// Keep the existing polkit agent from the Hyprland session.
+// spawn-at-startup "/usr/libexec/hyprpolkitagent"

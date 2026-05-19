@@ -1,0 +1,110 @@
+binds {
+    Mod+Return hotkey-overlay-title="Open terminal: ghostty" { spawn "ghostty"; }
+    Mod+E hotkey-overlay-title="Open file manager: nautilus" { spawn "nautilus"; }
+    Mod+Q hotkey-overlay-title=null repeat=false { close-window; }
+    Mod+Shift+M hotkey-overlay-title=null { quit skip-confirmation=true; }
+    Mod+V { toggle-window-floating; }
+    Mod+Space hotkey-overlay-title="Run application: rofi" { spawn-sh "pkill rofi || rofi -show drun -theme \"$HOME/.config/rofi/applauncher.rasi\""; }
+    Mod+F { fullscreen-window; }
+    Mod+B { spawn "microsoft-edge-stable"; }
+    Mod+C { spawn "code"; }
+
+    Mod+Print { screenshot-window write-to-disk=false; }
+    // Use Ctrl+C in the interactive UI to keep the shot clipboard-only.
+    Print { screenshot; }
+    Shift+Print { screenshot-screen write-to-disk=false; }
+
+    // Niri has no direct pin/sticky window action yet.
+    Mod+K { toggle-column-tabbed-display; }
+    Mod+Tab { focus-window-down; }
+
+    // Hyprland's live gap toggles and resize submap do not have direct Niri equivalents.
+    Mod+R { switch-preset-column-width; }
+    Mod+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "pactl set-sink-volume @DEFAULT_SINK@ +5% && pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\\d+(?=%)' | awk '{if ($1 > 100) system(\"pactl set-sink-volume @DEFAULT_SINK@ 100%\")}' && pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\\d+(?=%)' | awk '{print $1}' | head -1 > /tmp/niri.wob"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "pactl set-sink-volume @DEFAULT_SINK@ -5% && pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\\d+(?=%)' | awk '{print $1}' | head -1 > /tmp/niri.wob"; }
+    XF86AudioMute allow-when-locked=true { spawn-sh "amixer sset Master toggle | sed -En '/\\[on\\]/ s/.*\\[([0-9]+)%\\].*/\\1/ p; /\\[off\\]/ s/.*/0/p' | head -1 > /tmp/niri.wob"; }
+
+    XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
+
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "s" "+5%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
+    Mod+L allow-inhibiting=false { spawn "hyprlock"; }
+    Mod+O { spawn-sh "pkill -x vibepanel || true; exec vibepanel"; }
+
+    Mod+Shift+Left { move-column-left; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+Up { move-window-up; }
+    Mod+Shift+Down { move-window-down; }
+
+    Mod+Left { focus-column-left; }
+    Mod+Right { focus-column-right; }
+    Mod+Up { focus-window-up; }
+    Mod+Down { focus-window-down; }
+
+    Mod+Ctrl+Shift+Right { set-column-width "+10%"; }
+    Mod+Ctrl+Shift+Left { set-column-width "-10%"; }
+    Mod+Ctrl+Shift+Up { set-window-height "-10%"; }
+    Mod+Ctrl+Shift+Down { set-window-height "+10%"; }
+    Mod+Ctrl+Shift+L { set-column-width "+10%"; }
+    Mod+Ctrl+Shift+H { set-column-width "-10%"; }
+    Mod+Ctrl+Shift+K { set-window-height "-10%"; }
+    Mod+Ctrl+Shift+J { set-window-height "+10%"; }
+
+    // Niri already supports Mod+MouseLeft drag and Mod+MouseRight resize.
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+0 { focus-workspace 10; }
+
+    // Ctrl+number keeps Hyprland's "move focused window" intent.
+    Mod+Ctrl+1 { move-window-to-workspace 1; }
+    Mod+Ctrl+2 { move-window-to-workspace 2; }
+    Mod+Ctrl+3 { move-window-to-workspace 3; }
+    Mod+Ctrl+4 { move-window-to-workspace 4; }
+    Mod+Ctrl+5 { move-window-to-workspace 5; }
+    Mod+Ctrl+6 { move-window-to-workspace 6; }
+    Mod+Ctrl+7 { move-window-to-workspace 7; }
+    Mod+Ctrl+8 { move-window-to-workspace 8; }
+    Mod+Ctrl+9 { move-window-to-workspace 9; }
+    Mod+Ctrl+0 { move-window-to-workspace 10; }
+
+    // Shift+number moves the whole column; this is the closest durable match to Hyprland's silent move.
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+0 { move-column-to-workspace 10; }
+
+    Mod+Ctrl+Left { move-window-to-workspace-up; }
+    Mod+Ctrl+Right { move-window-to-workspace-down; }
+
+    Mod+Period { focus-workspace-down; }
+    Mod+Comma { focus-workspace-up; }
+    Mod+WheelScrollDown cooldown-ms=150 { focus-column-right; }
+    Mod+WheelScrollUp cooldown-ms=150 { focus-column-left; }
+    Mod+Shift+WheelScrollDown cooldown-ms=150 { focus-window-down; }
+    Mod+Shift+WheelScrollUp cooldown-ms=150 { focus-window-up; }
+    Mod+Slash { focus-workspace-previous; }
+
+    Mod+Minus { move-column-to-workspace "special"; }
+    Mod+Equal { focus-workspace "special"; }
+    Mod+F1 { focus-workspace "scratchpad"; }
+    Mod+Alt+Shift+F1 { move-column-to-workspace "scratchpad"; }
+}

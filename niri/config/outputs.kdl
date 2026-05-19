@@ -1,0 +1,16 @@
+// If a connector name differs on this system, check it with: niri msg outputs
+output "DP-4" {
+    mode "5120x1440@120"
+    scale 1
+    position x=0 y=0
+    variable-refresh-rate on-demand=true
+    focus-at-startup
+}
+
+// Positioned above DP-4 using the current monitor geometry from monitors.xml.
+output "HDMI-A-1" {
+    mode "3440x1440@99.99"
+    scale 1
+    position x=966 y=-1440
+    variable-refresh-rate on-demand=true
+}

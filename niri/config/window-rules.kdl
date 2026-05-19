@@ -1,0 +1,122 @@
+// Rounded corners are the closest equivalent to Hyprland's global rounding.
+window-rule {
+    geometry-corner-radius 4
+    clip-to-geometry true
+}
+
+// Approximate Hyprland's xray blur for floating windows.
+window-rule {
+    match is-floating=true
+
+    background-effect {
+        xray true
+        blur true
+        noise 0.02
+        saturation 1.25
+    }
+}
+
+window-rule {
+    match app-id=r#"^((google-)?[cC]hrom(e|ium)|[bB]rave-browser|[mM]icrosoft-edge(-stable)?|Vivaldi-stable|helium)$"# is-active=false
+    opacity 0.97
+}
+
+window-rule {
+    match app-id=r#"^([fF]irefox|zen|librewolf)$"# is-active=false
+    opacity 0.97
+}
+
+window-rule {
+    match app-id=r#"^((google-)?[cC]hrom(e|ium)|[bB]rave-browser|[mM]icrosoft-edge(-stable)?|Vivaldi-stable|helium|[fF]irefox|zen|librewolf)$"# title=r#"(?i).*(youtube|twitch|zoom|google meet).*$"#
+    opacity 1.0
+}
+
+window-rule {
+    match app-id=r#"^(org\.gnome\.NautilusPreviewer|org\.gnome\.Evince|com\.gabm\.satty|imv|mpv)$"#
+    open-floating true
+    default-column-width { fixed 875; }
+    default-window-height { fixed 600; }
+}
+
+window-rule {
+    match app-id=r#"^(code|microsoft-edge(-stable)?)$"# title=r#"^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files|.*wants to (open|save).*|[Cc]hoose.*)$"#
+    open-floating true
+    default-column-width { fixed 875; }
+    default-window-height { fixed 600; }
+}
+
+window-rule {
+    match app-id=r#"^(xdg-desktop-portal-gtk|sublime_text|DesktopEditors|org\.gnome\.Nautilus)$"# title=r#"^(Open.*Files?|Open [Ff]older.*|Save.*Files?|Save.*As|Save|All Files|.*wants to (open|save).*|[Cc]hoose.*)$"#
+    open-floating true
+    default-column-width { fixed 875; }
+    default-window-height { fixed 600; }
+}
+
+window-rule {
+    match app-id=r#"^org\.gnome\.Calculator$"#
+    open-floating true
+}
+
+window-rule {
+    match app-id=r#"^(zoom|vlc|mpv|org\.kde\.kdenlive|com\.obsproject\.Studio|com\.github\.PintaProject\.Pinta|imv|org\.gnome\.NautilusPreviewer)$"#
+    opacity 1.0
+}
+
+window-rule {
+    match app-id=r#"^(steam|mpv|vlc|org\.kde\.kdenlive)$"#
+    variable-refresh-rate true
+}
+
+// Niri doesn't support sticky/pinned windows yet, so PiP stays floated and placed.
+window-rule {
+    match app-id=r#"^((google-)?[cC]hrom(e|ium)|[bB]rave-browser|[mM]icrosoft-edge(-stable)?|Vivaldi-stable|helium|[fF]irefox|zen|librewolf)$"# title=r#"(?i)^picture[ -]?in[ -]?picture$"#
+    open-floating true
+    open-focused false
+    default-column-width { fixed 600; }
+    default-window-height { fixed 338; }
+    default-floating-position x=40 y=58 relative-to="top-right"
+    opacity 1.0
+
+    border {
+        off
+    }
+
+    focus-ring {
+        off
+    }
+}
+
+window-rule {
+    match app-id=r#"^steam$"#
+    open-floating true
+    opacity 1.0
+}
+
+window-rule {
+    match app-id=r#"^steam$"# title=r#"^Steam$"#
+    default-column-width { fixed 1100; }
+    default-window-height { fixed 700; }
+}
+
+window-rule {
+    match app-id=r#"^steam$"# title=r#"^Friends List$"#
+    default-column-width { fixed 460; }
+    default-window-height { fixed 800; }
+}
+
+// Webcam overlay is floated and kept unfocused; follow/pin needs external IPC tooling.
+window-rule {
+    match title=r#"^WebcamOverlay$"#
+    open-floating true
+    open-focused false
+    default-floating-position x=40 y=40 relative-to="bottom-right"
+    opacity 1.0
+
+    border {
+        off
+    }
+
+    focus-ring {
+        off
+    }
+}
