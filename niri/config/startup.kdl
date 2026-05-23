@@ -2,4 +2,4 @@ spawn-at-startup "vibepanel"
 spawn-at-startup "fcitx" "-d"
 
 // Keep the existing polkit agent from the Hyprland session.
-// spawn-at-startup "/usr/libexec/hyprpolkitagent"
+// spawn-at-startup "/usr/libexec/kf6/polkit-kde-authentication-agent-1"
