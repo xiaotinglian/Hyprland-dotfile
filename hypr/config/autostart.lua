@@ -2,6 +2,6 @@
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("vibepanel")
-    hl.exec_cmd("ibus start --type wayland")
-    hl.exec_cmd("/usr/libexec/hyprpolkitagent &")
+    hl.exec_cmd("fcitx5 -d &")
+    hl.exec_cmd("/usr/libexec/kf6/polkit-kde-authentication-agent-1 &")
 end)

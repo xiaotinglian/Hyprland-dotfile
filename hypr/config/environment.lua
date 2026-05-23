@@ -15,11 +15,11 @@ hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 
-hl.env("GTK_IM_MODULE", "ibus")
-hl.env("QT_IM_MODULE", "ibus")
-hl.env("XMODIFIERS", "@im=ibus")
-hl.env("GLFW_IM_MODULE", "ibus")
-hl.env("SDL_IM_MODULE", "ibus")
+hl.env("GTK_IM_MODULE", "fcitx")
+hl.env("QT_IM_MODULE", "fcitx")
+hl.env("XMODIFIERS", "@im=fcitx")
+hl.env("GLFW_IM_MODULE", "fcitx")
+hl.env("SDL_IM_MODULE", "fcitx")
 
 hl.config({
     xwayland = {

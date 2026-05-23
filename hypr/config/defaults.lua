@@ -2,9 +2,9 @@
 
 return {
     mainMod = "SUPER",
-    fileManager = "nautilus",
+    fileManager = "dolphin",
     appLauncher = 'rofi -show drun -theme "$HOME/.config/rofi/applauncher.rasi"',
     terminal = "ghostty",
-    browser = "microsoft-edge-stable",
+    browser = "chromium",
     editor = "code",
 }

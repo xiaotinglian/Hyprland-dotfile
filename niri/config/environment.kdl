@@ -9,11 +9,11 @@ environment {
     XDG_SESSION_TYPE "wayland"
     XDG_CURRENT_DESKTOP "niri"
     XDG_SESSION_DESKTOP "niri"
-    GTK_IM_MODULE "ibus"
-    QT_IM_MODULE "ibus"
-    XMODIFIERS "@im=ibus"
-    GLFW_IM_MODULE "ibus"
-    SDL_IM_MODULE "ibus"
+    GTK_IM_MODULE "fcitx"
+    QT_IM_MODULE "fcitx"
+    XMODIFIERS "@im=fcitx"
+    GLFW_IM_MODULE "fcitx"
+    SDL_IM_MODULE "fcitx"
 }
 
 cursor {
