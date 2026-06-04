@@ -1,0 +1,23 @@
+# Session-wide environment for UWSM.
+# Hyprland wiki recommends keeping toolkit/theming vars here.
+
+export GDK_SCALE=2
+export XCURSOR_SIZE=32
+export XCURSOR_THEME=Adwaita
+
+export GDK_BACKEND=wayland,x11,*
+export QT_QPA_PLATFORM=wayland;xcb
+export SDL_VIDEODRIVER=wayland
+export MOZ_ENABLE_WAYLAND=1
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
+export OZONE_PLATFORM=wayland
+
+# Keep Steam text at normal size even with global desktop scaling.
+export STEAM_FORCE_DESKTOPUI_SCALING=1 steam
+
+# Optional IME variables for fcitx:
+# export GTK_IM_MODULE=fcitx
+# export QT_IM_MODULE=fcitx
+# export XMODIFIERS=@im=fcitx
+# export GLFW_IM_MODULE=fcitx
+# export SDL_IM_MODULE=fcitx

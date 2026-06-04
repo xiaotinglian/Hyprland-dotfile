@@ -5,6 +5,6 @@ return {
     fileManager = "dolphin",
     appLauncher = 'rofi -show drun -theme "$HOME/.config/rofi/applauncher.rasi"',
     terminal = "ghostty",
-    browser = "chromium",
+    browser = "zen-browser",
     editor = "code",
 }

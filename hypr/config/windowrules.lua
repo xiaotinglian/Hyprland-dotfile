@@ -68,9 +68,11 @@ hl.window_rule({ name = "steam-size-main", match = { class = "^steam$", title = 
 hl.window_rule({ name = "steam-size-friends", match = { class = "^steam$", title = "^Friends List$" }, size = "460 800" })
 hl.window_rule({ name = "steam-idle-inhibit", match = { class = "^steam$" }, idle_inhibit = "fullscreen" })
 
+hl.window_rule({ name = "discord-float", match = { class = "^(discord|Discord)$" }, float = true })
+
 hl.window_rule({
     name = "tag-terminal",
-    match = { class = "^(Alacritty|kitty|com.mitchellh.ghostty)$" },
+    match = { class = "^(Alacritty|kitty|ghostty|com.mitchellh.ghostty)$" },
     tag = "+terminal",
 })
 
@@ -115,3 +117,22 @@ hl.window_rule({ name = "webcam-overlay-pin", match = { title = "^WebcamOverlay$
 hl.window_rule({ name = "webcam-overlay-no-focus", match = { title = "^WebcamOverlay$" }, no_initial_focus = true })
 hl.window_rule({ name = "webcam-overlay-no-dim", match = { title = "^WebcamOverlay$" }, no_dim = true })
 hl.window_rule({ name = "webcam-overlay-move", match = { title = "^WebcamOverlay$" }, move = "(monitor_w-window_w-40) (monitor_h-window_h-40)" })
+
+hl.window_rule({
+    { class = "^steam_app_.*$", }, -- Applies rules to Proton games
+    {
+        no_gaps_when_only = 2,
+        allow_tearing = true, -- Great for tearing-capable GPUs
+        no_blur = true,
+        focus_on_close = 1,
+    }
+})
+
+hl.window_rule({
+    { class = "^steam$", title = "^Steam$" }, -- Steam client itself
+    {
+        float = true,
+        move = "cursor 0 0",
+        size = "1000 700"
+    }
+})
